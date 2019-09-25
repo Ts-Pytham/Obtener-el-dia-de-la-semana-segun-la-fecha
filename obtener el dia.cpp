@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cmath>
 
 //=====================================Declaraciones=================================
 int semana(int s);
@@ -7,7 +6,7 @@ int siglo(int s);
 int mes(int m);
 //=====================================Func principal=================================
 int main(){
-	int d, bis = 1, m, s, a , totall, aa, total;
+	int d, bis = 1, m, s, a , totall, aa, total, mm;
 	bool c = false;
 	while (true){
 	std::cout<<"Ingrese el anio (ejemplo: 2002)"<<std::endl;
@@ -56,9 +55,8 @@ int main(){
 		} else{
 			if (bis == 0){
 				if(d <= 29){
-					std::cout<<"Este anio es bisiesto."<<std::endl;
 					c = true;
-					bis = 3;
+					bis = -1;
 				} else{
 					std::cout<<"Ingresaste el dia mal.";
 				}
@@ -71,15 +69,21 @@ int main(){
 			}
 		}
 	if (c == true){
-		m = mes(m);
+		mm = mes(m);
 		a = siglo(a);
-		aa = (int)s/4;
-		if( bis == 3){
+		aa = s/4;
+		if( bis == -1){
 			m = 2;
+			std::cout<<"El anio elegido es bisiesto."<<std::endl;
 		}
-		total = d+m+s+aa+a;
-		trunc(total);
-		totall = (int)total% 7;
+		else if(m <= 31 && m>=1){
+			if(bis == 0){
+				mm+=-1;
+				std::cout<<"El anio elegido es bisiesto."<<std::endl;
+				}
+		}
+		total = d+mm+s+aa+a;
+		totall = total%7;
 		semana(totall);
 	}
 	return 0;
